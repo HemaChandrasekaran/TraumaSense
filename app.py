@@ -54,7 +54,7 @@ try:
 
     emotion_model = pipeline(
         "text-classification",
-        model="SamLowe/roberta-base-go_emotions",
+        model="joeddav/distilbert-base-uncased-go-emotions-student",
         top_k=None
     )
 
@@ -1472,7 +1472,7 @@ def analyze():
             selected_language,
 
         "model":
-            "SamLowe/roberta-base-go_emotions",
+            "joeddav/distilbert-base-uncased-go-emotions-student",
 
         "voice_received":
             voice_received
@@ -2024,7 +2024,7 @@ def health():
             "running",
 
         "ai_model":
-            "SamLowe/roberta-base-go_emotions",
+            "joeddav/distilbert-base-uncased-go-emotions-student",
 
         "ai_model_ready":
             AI_MODEL_READY,
