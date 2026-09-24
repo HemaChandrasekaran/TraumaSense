@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Music Analysis Result</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .score {
+            font-size: 55px;
+            font-weight: bold;
+            margin: 20px;
+            color: #1db954;
+        }
+
+        .info {
+            background: #f0f8f3;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>🎵 Music Pattern Analysis</h1>
+
+    <p>
+        Selected pattern:
+        <strong>
+            {{ result.mood }}
+        </strong>
+    </p>
+
+    <div class="score">
+
+        {{ result.score }}/100
+
+    </div>
+
+    <p>
+        Music Listening Pattern Score
+    </p>
+
+    <div class="info">
+
+        This is a supporting behavioral signal
+        and contributes only a small amount to
+        the overall SVI.
+
+    </div>
+
+    <a href="/result">
+        Continue to Assessment Result
+    </a>
+
+</div>
+
+</body>
+
+</html>

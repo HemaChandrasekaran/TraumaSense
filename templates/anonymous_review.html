@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Anonymous Human Review</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        .session-card {
+            background: white;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .session-id {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .risk {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .HIGH {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .MEDIUM {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .LOW {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .UNKNOWN {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .warning {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #fee2e2;
+            color: #991b1b;
+            font-weight: bold;
+        }
+
+        button {
+            border: none;
+            padding: 11px 17px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .open-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .send-btn {
+            background: #16a34a;
+            color: white;
+        }
+
+        .chat {
+            display: none;
+            margin-top: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            max-width: 80%;
+            white-space: pre-wrap;
+        }
+
+        .user {
+            background: #dbeafe;
+        }
+
+        .ai {
+            background: #dcfce7;
+        }
+
+        .human {
+            background: #ede9fe;
+            margin-left: auto;
+        }
+
+        .sender {
+            font-weight: bold;
+        }
+
+        .time {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-top: 6px;
+        }
+
+        .reply-box {
+            display: none;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .reply-box input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>🛡️ Anonymous Human Review</h1>
+
+    <p>
+        Authorized communication dashboard
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    {% if sessions %}
+
+
+        {% for session in sessions %}
+
+
+        <div class="session-card">
+
+
+            <div class="top">
+
+                <div class="session-id">
+
+                    🔐 Anonymous Session:
+                    {{ session.session_id }}
+
+                </div>
+
+
+                <div class="risk {{ session.risk }}">
+
+                    Risk:
+                    {{ session.risk }}
+
+                </div>
+
+            </div>
+
+
+            <p>
+
+                📊 Stress Vulnerability Index:
+
+                <strong>
+                    {{ session.svi }}
+                </strong>
+
+            </p>
+
+
+            <p>
+
+                🕒 Created:
+
+                {{ session.created_at }}
+
+            </p>
+
+
+            {% if session.safety_flag %}
+
+            <div class="warning">
+
+                🚨 Safety concern detected.
+                Human review is recommended.
+
+            </div>
+
+            {% endif %}
+
+
+            {% if session.human_review %}
+
+            <div class="warning">
+
+                ⚠️ This session requires human attention.
+
+            </div>
+
+            {% endif %}
+
+
+            <br>
+
+
+            <button
+                class="open-btn"
+                onclick="openChat('{{ session.session_id }}')">
+
+                💬 Open Conversation
+
+            </button>
+
+
+            <div
+                id="chat-{{ session.session_id }}"
+                class="chat">
+
+            </div>
+
+
+            <div
+                id="reply-{{ session.session_id }}"
+                class="reply-box">
+
+
+                <input
+                    id="input-{{ session.session_id }}"
+                    type="text"
+                    maxlength="1000"
+                    placeholder="Type your response...">
+
+
+                <button
+                    class="send-btn"
+                    onclick="sendReply('{{ session.session_id }}')">
+
+                    Send Reply
+
+                </button>
+
+
+            </div>
+
+
+            <div
+                id="status-{{ session.session_id }}"
+                class="status">
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+            <h2>
+                No anonymous sessions
+            </h2>
+
+            <p>
+                Anonymous conversations will appear here.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+<script>
+
+
+// ============================================================
+// OPEN CHAT
+// ============================================================
+
+async function openChat(sessionId) {
+
+    const chat =
+        document.getElementById(
+            "chat-" + sessionId
+        );
+
+    const replyBox =
+        document.getElementById(
+            "reply-" + sessionId
+        );
+
+    const status =
+        document.getElementById(
+            "status-" + sessionId
+        );
+
+
+    chat.style.display = "block";
+
+    replyBox.style.display = "flex";
+
+
+    status.innerText =
+        "Loading conversation...";
+
+
+    await loadMessages(
+        sessionId
+    );
+
+
+    status.innerText =
+        "🟢 Conversation loaded.";
+
+}
+
+
+// ============================================================
+// LOAD MESSAGES
+// ============================================================
+
+async function loadMessages(sessionId) {
+
+    try {
+
+        const response =
+            await fetch(
+                "/review-chat/" + sessionId
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+            return;
+        }
+
+
+        const chat =
+            document.getElementById(
+                "chat-" + sessionId
+            );
+
+
+        chat.innerHTML = "";
+
+
+        data.messages.forEach(
+            message => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                if (
+                    message.sender ===
+                    "Anonymous User"
+                ) {
+
+                    div.className =
+                        "message user";
+
+                    div.innerHTML =
+                        "<div class='sender'>👤 Anonymous User</div>"
+                        +
+                        "<br>"
+                        +
+                        escapeHtml(
+                            message.message
+                        )
+                        +
+                        "<div class='time'>"
+                        +
+                        escapeHtml(
+                            message.time
+                        )
+                        +
+                        "</div>";
+
+                }
+
+
+                else if (
+                    message.sender ===
+                    "AI Assistant"
+                ) {
+
+                    div.className =
+                        "message ai";
+
+                    div.innerHTML =
+                        "<div class='sender'>🤖 AI Assistant</div>"
+                        +
+                        "<br>"
+                        +
+                        escapeHtml(
+                            message.message
+                        )
+                        +
+                        "<div class='time'>"
+                        +
+                        escapeHtml(
+                            message.time
+                        )
+                        +
+                        "</div>";
+
+                }
+
+
+                else {
+
+                    div.className =
+                        "message human";
+
+                    div.innerHTML =
+                        "<div class='sender'>👩‍💼 Human Reviewer</div>"
+                        +
+                        "<br>"
+                        +
+                        escapeHtml(
+                            message.message
+                        )
+                        +
+                        "<div class='time'>"
+                        +
+                        escapeHtml(
+                            message.time
+                        )
+                        +
+                        "</div>";
+
+                }
+
+
+                chat.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+
+// ============================================================
+// SEND HUMAN REPLY
+// ============================================================
+
+async function sendReply(sessionId) {
+
+    const input =
+        document.getElementById(
+            "input-" + sessionId
+        );
+
+
+    const status =
+        document.getElementById(
+            "status-" + sessionId
+        );
+
+
+    const message =
+        input.value.trim();
+
+
+    if (!message) {
+
+        status.innerText =
+            "⚠️ Please type a response.";
+
+        return;
+
+    }
+
+
+    status.innerText =
+        "Sending response...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/send-officer-reply",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        session_id:
+                            sessionId,
+
+                        message:
+                            message
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            status.innerText =
+                "❌ " +
+                data.message;
+
+            return;
+
+        }
+
+
+        input.value = "";
+
+
+        status.innerText =
+            "🟢 Response sent.";
+
+
+        await loadMessages(
+            sessionId
+        );
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        status.innerText =
+            "❌ Unable to send response.";
+
+    }
+
+}
+
+
+// ============================================================
+// AUTO REFRESH OPEN CHATS
+// ============================================================
+
+setInterval(
+    function() {
+
+        const chats =
+            document.querySelectorAll(
+                ".chat"
+            );
+
+
+        chats.forEach(
+            function(chat) {
+
+                if (
+                    chat.style.display ===
+                    "block"
+                ) {
+
+                    const sessionId =
+                        chat.id.replace(
+                            "chat-",
+                            ""
+                        );
+
+
+                    loadMessages(
+                        sessionId
+                    );
+
+                }
+
+            }
+        );
+
+    },
+    2000
+);
+
+
+// ============================================================
+// SECURITY: ESCAPE HTML
+// ============================================================
+
+function escapeHtml(text) {
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+    element.textContent =
+        text;
+
+    return element.innerHTML;
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Assessment Review</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4f7fb,
+                    #ffffff
+                );
+
+            color: #263238;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1050px;
+
+            margin: 35px auto 60px;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            background: #ffffff;
+
+            padding: 25px 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .header h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 30px;
+
+            color: #263238;
+
+        }
+
+
+        .header p {
+
+            margin: 0;
+
+            color: #68727d;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           RESULT STATUS
+        ===================================================== */
+
+        .status-card {
+
+            background: #ffffff;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .status-icon {
+
+            font-size: 60px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .status-title {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .status-description {
+
+            color: #69727d;
+
+            line-height: 1.6;
+
+        }
+
+
+        .status-low {
+
+            color: #238653;
+
+        }
+
+
+        .status-medium {
+
+            color: #c98200;
+
+        }
+
+
+        .status-high {
+
+            color: #c83f3f;
+
+        }
+
+
+        /* =====================================================
+           SVI CARD
+        ===================================================== */
+
+        .svi-box {
+
+            background: #ffffff;
+
+            padding: 28px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .svi-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .svi-heading h2 {
+
+            margin: 0;
+
+            color: #263238;
+
+        }
+
+
+        .svi-number {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #263238;
+
+        }
+
+
+        /* =====================================================
+           SVI INDICATOR
+        ===================================================== */
+
+        .indicator {
+
+            margin-top: 25px;
+
+        }
+
+
+        .indicator-track {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 30px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    #32a866 0%,
+                    #32a866 35%,
+                    #e8c34d 50%,
+                    #e99a36 70%,
+                    #d64545 100%
+                );
+
+            box-shadow:
+                inset 0 2px 5px
+                rgba(0,0,0,0.22);
+
+        }
+
+
+        .indicator-marker {
+
+            position: absolute;
+
+            top: -9px;
+
+            width: 6px;
+
+            height: 48px;
+
+            background: #111111;
+
+            border-radius: 5px;
+
+            transform:
+                translateX(-50%);
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,0.4);
+
+            transition:
+                left 0.8s ease;
+
+        }
+
+
+        .indicator-marker::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: -7px;
+
+            transform:
+                translateX(-50%);
+
+            width: 0;
+
+            height: 0;
+
+            border-left:
+                6px solid transparent;
+
+            border-right:
+                6px solid transparent;
+
+            border-top:
+                7px solid #111111;
+
+        }
+
+
+        .indicator-labels {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            margin-top: 12px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        .green {
+
+            color: #218653;
+
+        }
+
+
+        .orange {
+
+            color: #c98200;
+
+        }
+
+
+        .red {
+
+            color: #c83f3f;
+
+        }
+
+
+        /* =====================================================
+           SVI EXPLANATION
+        ===================================================== */
+
+        .explanation {
+
+            margin-top: 22px;
+
+            padding: 18px 20px;
+
+            background: #f7f9fc;
+
+            border-radius: 12px;
+
+            border:
+                1px solid #e4e8ed;
+
+            line-height: 1.7;
+
+            color: #4e5863;
+
+        }
+
+
+        /* =====================================================
+           METRIC GRID
+        ===================================================== */
+
+        .metrics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* =====================================================
+           METRIC CARD
+        ===================================================== */
+
+        .metric {
+
+            padding: 23px;
+
+            border-radius: 18px;
+
+            background: #ffffff;
+
+            border:
+                1px solid #e3e7ec;
+
+            box-shadow:
+                0 7px 22px
+                rgba(0,0,0,0.06);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+
+        }
+
+
+        .metric:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(0,0,0,0.10);
+
+        }
+
+
+        /* Soft backgrounds only */
+
+        .metric.stress {
+
+            background: #fff8f2;
+
+        }
+
+
+        .metric.fear {
+
+            background: #fff5f5;
+
+        }
+
+
+        .metric.anxiety {
+
+            background: #fffaf0;
+
+        }
+
+
+        .metric.trauma {
+
+            background: #faf6ff;
+
+        }
+
+
+        .metric.vulnerability {
+
+            background: #fff7f7;
+
+        }
+
+
+        .metric-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 13px;
+
+        }
+
+
+        .metric-name {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #374151;
+
+        }
+
+
+        .metric-value {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            color: #374151;
+
+        }
+
+
+        /* =====================================================
+           METRIC BAR
+        ===================================================== */
+
+        .bar {
+
+            width: 100%;
+
+            height: 19px;
+
+            background: #dfe4e9;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+
+        .bar-fill {
+
+            height: 100%;
+
+            border-radius: 20px;
+
+            width: 0;
+
+            transition:
+                width 1.2s ease;
+
+        }
+
+
+        .stress-fill {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #f1b44c,
+                    #e97845
+                );
+
+        }
+
+
+        .fear-fill {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ed7772,
+                    #cc4545
+                );
+
+        }
+
+
+        .anxiety-fill {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #f1c44e,
+                    #dc9230
+                );
+
+        }
+
+
+        .trauma-fill {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #b697e4,
+                    #815db5
+                );
+
+        }
+
+
+        .vulnerability-fill {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e78686,
+                    #c54242
+                );
+
+        }
+
+
+        .scale {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            margin-top: 8px;
+
+            font-size: 12px;
+
+            color: #7a838d;
+
+        }
+
+
+        /* =====================================================
+           SAFETY
+        ===================================================== */
+
+        .safety-card {
+
+            background: #ffffff;
+
+            padding: 27px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.07);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .safety-card h2 {
+
+            margin-top: 0;
+
+        }
+
+
+        .safety-safe {
+
+            background: #e9f8ef;
+
+            border-left:
+                5px solid #38a866;
+
+            padding: 17px;
+
+            border-radius: 10px;
+
+            color: #286b47;
+
+            line-height: 1.6;
+
+        }
+
+
+        .safety-warning {
+
+            background: #fff0ed;
+
+            border-left:
+                5px solid #d94a45;
+
+            padding: 17px;
+
+            border-radius: 10px;
+
+            color: #8c302c;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           REMEDIES
+        ===================================================== */
+
+        .remedies {
+
+            background: #ffffff;
+
+            padding: 27px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.07);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .remedies h2 {
+
+            margin-top: 0;
+
+        }
+
+
+        .remedy-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 18px;
+
+        }
+
+
+        .remedy {
+
+            background: #f7f9fb;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid #e3e7eb;
+
+            line-height: 1.6;
+
+        }
+
+
+        .remedy strong {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #374151;
+
+        }
+
+
+        /* =====================================================
+           CONTACT
+        ===================================================== */
+
+        .contact {
+
+            background: #f5f8fc;
+
+            padding: 27px;
+
+            border-radius: 20px;
+
+            border:
+                1px solid #e0e6ed;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .contact h2 {
+
+            margin-top: 0;
+
+        }
+
+
+        .contact ul {
+
+            line-height: 1.9;
+
+        }
+
+
+        /* =====================================================
+           CASE INFORMATION
+        ===================================================== */
+
+        .case-card {
+
+            background: #ffffff;
+
+            padding: 27px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.07);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .case-id {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            color: #374151;
+
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .actions {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 14px;
+
+            flex-wrap: wrap;
+
+            margin-top: 28px;
+
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            padding:
+                13px 25px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            background: #4b5563;
+
+            color: white;
+
+            transition: 0.2s;
+
+        }
+
+
+        .button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 7px 17px
+                rgba(0,0,0,0.16);
+
+        }
+
+
+        .button.secondary {
+
+            background: #718096;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            text-align: center;
+
+            color: #7b8490;
+
+            font-size: 13px;
+
+            margin-top: 30px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media(max-width:700px) {
+
+            .container {
+
+                width: 94%;
+
+                margin-top: 20px;
+
+            }
+
+
+            .metrics {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .remedy-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 25px;
+
+            }
+
+
+            .status-title {
+
+                font-size: 25px;
+
+            }
+
+
+            .svi-heading {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <div class="header">
+
+        <h1>
+            🧠 Assessment Review
+        </h1>
+
+        <p>
+            AI-assisted stress, trauma and vulnerability
+            assessment results.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         STATUS
+    ===================================================== -->
+
+    <div class="status-card">
+
+        {% if result.risk == "HIGH" %}
+
+            <div class="status-icon">
+                ⚠️
+            </div>
+
+            <div class="status-title status-high">
+                High Level of Concern
+            </div>
+
+            <div class="status-description">
+                The assessment indicates a higher level
+                of emotional distress or vulnerability.
+            </div>
+
+        {% elif result.risk == "MEDIUM" %}
+
+            <div class="status-icon">
+                ⚠️
+            </div>
+
+            <div class="status-title status-medium">
+                Moderate Level of Concern
+            </div>
+
+            <div class="status-description">
+                The assessment indicates a moderate level
+                of emotional distress or vulnerability.
+            </div>
+
+        {% else %}
+
+            <div class="status-icon">
+                🕊️
+            </div>
+
+            <div class="status-title status-low">
+                Lower Level of Concern
+            </div>
+
+            <div class="status-description">
+                The assessment indicates a relatively
+                lower level of emotional distress.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SVI
+    ===================================================== -->
+
+    <div class="svi-box">
+
+        <div class="svi-heading">
+
+            <h2>
+                📊 Stress Vulnerability Index (SVI)
+            </h2>
+
+            <div class="svi-number">
+                {{ result.svi }} / 100
+            </div>
+
+        </div>
+
+
+        <div class="indicator">
+
+            <div
+                class="indicator-track"
+                id="indicatorTrack">
+
+                <div
+                    class="indicator-marker"
+                    id="indicatorMarker">
+                </div>
+
+            </div>
+
+
+            <div class="indicator-labels">
+
+                <span class="green">
+                    LOW
+                </span>
+
+                <span class="orange">
+                    MODERATE
+                </span>
+
+                <span class="red">
+                    HIGH
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="explanation">
+
+            {{ result.svi_explanation }}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         METRICS
+    ===================================================== -->
+
+    <div class="metrics">
+
+
+        <!-- STRESS -->
+
+        <div class="metric stress">
+
+            <div class="metric-header">
+
+                <div class="metric-name">
+                    😣 Stress
+                </div>
+
+                <div class="metric-value">
+                    {{ result.stress }}%
+                </div>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill stress-fill"
+                    data-value="{{ result.stress }}">
+                </div>
+
+            </div>
+
+            <div class="scale">
+
+                <span>Low</span>
+
+                <span>High</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEAR -->
+
+        <div class="metric fear">
+
+            <div class="metric-header">
+
+                <div class="metric-name">
+                    😨 Fear
+                </div>
+
+                <div class="metric-value">
+                    {{ result.fear }}%
+                </div>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill fear-fill"
+                    data-value="{{ result.fear }}">
+                </div>
+
+            </div>
+
+            <div class="scale">
+
+                <span>Low</span>
+
+                <span>High</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ANXIETY -->
+
+        <div class="metric anxiety">
+
+            <div class="metric-header">
+
+                <div class="metric-name">
+                    😟 Anxiety
+                </div>
+
+                <div class="metric-value">
+                    {{ result.anxiety }}%
+                </div>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill anxiety-fill"
+                    data-value="{{ result.anxiety }}">
+                </div>
+
+            </div>
+
+            <div class="scale">
+
+                <span>Low</span>
+
+                <span>High</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TRAUMA -->
+
+        <div class="metric trauma">
+
+            <div class="metric-header">
+
+                <div class="metric-name">
+                    💭 Trauma / Distress
+                </div>
+
+                <div class="metric-value">
+                    {{ result.trauma_distress }}%
+                </div>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill trauma-fill"
+                    data-value="{{ result.trauma_distress }}">
+                </div>
+
+            </div>
+
+            <div class="scale">
+
+                <span>Low</span>
+
+                <span>High</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- VULNERABILITY -->
+
+        <div class="metric vulnerability">
+
+            <div class="metric-header">
+
+                <div class="metric-name">
+                    🛡️ Vulnerability
+                </div>
+
+                <div class="metric-value">
+                    {{ result.vulnerability }}%
+                </div>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill vulnerability-fill"
+                    data-value="{{ result.vulnerability }}">
+                </div>
+
+            </div>
+
+            <div class="scale">
+
+                <span>Low</span>
+
+                <span>High</span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SAFETY
+    ===================================================== -->
+
+    <div class="safety-card">
+
+        <h2>
+            🛡️ Safety Indicators
+        </h2>
+
+
+        {% if result.safety_flag %}
+
+            <div class="safety-warning">
+
+                <strong>
+                    ⚠️ Safety-related indicators detected.
+                </strong>
+
+                <br><br>
+
+                The submitted response contains
+                words or indicators associated with
+                possible safety concerns.
+
+                {% if result.safety_indicators %}
+
+                    <br><br>
+
+                    <strong>
+                        Detected indicators:
+                    </strong>
+
+                    {{ result.safety_indicators | join(", ") }}
+
+                {% endif %}
+
+            </div>
+
+        {% else %}
+
+            <div class="safety-safe">
+
+                <strong>
+                    ✓ No immediate safety indicators detected.
+                </strong>
+
+                <br>
+
+                This does not guarantee that the person
+                is completely safe. The result is only
+                an AI-assisted screening indicator.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- =====================================================
+         REMEDIES
+    ===================================================== -->
+
+    <div class="remedies">
+
+        <h2>
+            🌿 What You Can Do
+        </h2>
+
+
+        <div class="remedy-grid">
+
+
+            <div class="remedy">
+
+                <strong>
+                    🌬️ Slow Down
+                </strong>
+
+                Take a few slow breaths and give yourself
+                a quiet moment before making decisions.
+
+            </div>
+
+
+            <div class="remedy">
+
+                <strong>
+                    📝 Write It Down
+                </strong>
+
+                Writing down what happened or what you
+                are feeling may help organize your thoughts.
+
+            </div>
+
+
+            <div class="remedy">
+
+                <strong>
+                    🤝 Contact Someone You Trust
+                </strong>
+
+                Consider speaking with a trusted person,
+                family member, friend, or appropriate
+                support professional.
+
+            </div>
+
+
+            <div class="remedy">
+
+                <strong>
+                    🧘 Take Care of Yourself
+                </strong>
+
+                Rest, drink water, eat regularly and
+                give yourself time to recover.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         WHO TO CONTACT
+    ===================================================== -->
+
+    <div class="contact">
+
+        <h2>
+            📞 Who You Can Contact
+        </h2>
+
+        <ul>
+
+            <li>
+                A trusted family member or friend
+            </li>
+
+            <li>
+                A qualified mental-health professional
+                when appropriate
+            </li>
+
+            <li>
+                An authorized support or case-review
+                personnel
+            </li>
+
+            <li>
+                Appropriate emergency services if there
+                is immediate danger
+            </li>
+
+        </ul>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CASE
+    ===================================================== -->
+
+    <div class="case-card">
+
+        <h2>
+            📁 Assessment Information
+        </h2>
+
+        <p>
+            <strong>Case ID:</strong>
+        </p>
+
+        <div class="case-id">
+            {{ case_id }}
+        </div>
+
+        <p>
+
+            This assessment is an AI-assisted prototype
+            and should not be considered a medical or
+            psychological diagnosis.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ACTIONS
+    ===================================================== -->
+
+    <div class="actions">
+
+        <a
+            href="/assessment"
+            class="button">
+
+            ← New Assessment
+
+        </a>
+
+
+    <footer>
+
+        AI-Based Real-Time Stress & Trauma
+        Assessment Prototype
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+    /* =====================================================
+       SVI MARKER
+    ===================================================== */
+
+    const sviValue =
+        Number(
+            "{{ result.svi | default(0) }}"
+        );
+
+
+    const marker =
+        document.getElementById(
+            "indicatorMarker"
+        );
+
+
+    let safeSvi =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                sviValue
+            )
+        );
+
+
+    marker.style.left =
+        safeSvi + "%";
+
+
+
+    /* =====================================================
+       ANIMATE METRIC BARS
+    ===================================================== */
+
+    const bars =
+        document.querySelectorAll(
+            ".bar-fill"
+        );
+
+
+    bars.forEach(
+        function(bar) {
+
+            const value =
+                Number(
+                    bar.dataset.value
+                );
+
+
+            const safeValue =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        value
+                    )
+                );
+
+
+            setTimeout(
+                function() {
+
+                    bar.style.width =
+                        safeValue + "%";
+
+                },
+                200
+            );
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

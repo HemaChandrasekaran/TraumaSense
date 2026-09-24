@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Breathing Exercise</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef7f6;
+            color: #263238;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            text-align: center;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.10);
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            color: #68777a;
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================================
+           BREATHING CIRCLE
+        ========================================== */
+
+        .breathing-area {
+            height: 300px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: #20a39e;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+
+            box-shadow:
+                0 0 0 15px rgba(32, 163, 158, 0.10),
+                0 0 0 30px rgba(32, 163, 158, 0.05);
+
+            transition:
+                transform 4s ease-in-out,
+                box-shadow 4s ease-in-out;
+        }
+
+
+        .circle.inhale {
+
+            transform: scale(1.45);
+
+            box-shadow:
+                0 0 0 25px rgba(32, 163, 158, 0.12),
+                0 0 0 50px rgba(32, 163, 158, 0.06);
+        }
+
+
+        .circle.hold {
+
+            transform: scale(1.45);
+        }
+
+
+        .circle.exhale {
+
+            transform: scale(1);
+
+            box-shadow:
+                0 0 0 15px rgba(32, 163, 158, 0.10),
+                0 0 0 30px rgba(32, 163, 158, 0.05);
+        }
+
+
+        .instruction {
+
+            font-size: 25px;
+            font-weight: bold;
+
+            margin-top: 10px;
+        }
+
+
+        .timer {
+
+            font-size: 18px;
+            color: #667;
+
+            margin-top: 10px;
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================== */
+
+        .button {
+
+            border: none;
+            border-radius: 12px;
+
+            padding: 14px 25px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin: 8px;
+
+            transition: 0.2s;
+        }
+
+
+        .start {
+
+            background: #20a39e;
+            color: white;
+        }
+
+
+        .stop {
+
+            background: #e57373;
+            color: white;
+        }
+
+
+        .back {
+
+            background: #455a64;
+            color: white;
+
+            text-decoration: none;
+
+            display: inline-block;
+        }
+
+
+        .button:hover {
+
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+
+        /* =========================================
+           SESSION INFO
+        ========================================== */
+
+        .info {
+
+            background: #f1f8f7;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            margin-top: 25px;
+
+            font-size: 14px;
+
+            color: #566;
+        }
+
+
+        .completed {
+
+            display: none;
+
+            background: #e8f5e9;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            margin-top: 20px;
+
+            color: #2e7d32;
+
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="card">
+
+
+        <h1>
+            🌬️ Breathing Exercise
+        </h1>
+
+
+        <p class="subtitle">
+
+            Take a short moment to slow down
+            and focus on your breathing.
+
+        </p>
+
+
+        <!-- =========================================
+             BREATHING ANIMATION
+        ========================================== -->
+
+        <div class="breathing-area">
+
+            <div
+                id="breathingCircle"
+                class="circle">
+
+                Ready
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="instruction"
+            class="instruction">
+
+            Press Start
+
+        </div>
+
+
+        <div
+            id="timer"
+            class="timer">
+
+            60 seconds
+
+        </div>
+
+
+        <!-- =========================================
+             CONTROLS
+        ========================================== -->
+
+        <div>
+
+            <button
+                type="button"
+                id="startButton"
+                class="button start"
+                onclick="startBreathing()">
+
+                ▶ Start
+
+            </button>
+
+
+            <button
+                type="button"
+                id="stopButton"
+                class="button stop"
+                onclick="stopBreathing()">
+
+                ■ Stop
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================================
+             COMPLETION
+        ========================================== -->
+
+        <div
+            id="completed"
+            class="completed">
+
+            🌿 Breathing session completed.
+
+            <br><br>
+
+            Take a moment before continuing.
+
+        </div>
+
+
+        <!-- =========================================
+             INFORMATION
+        ========================================== -->
+
+        <div class="info">
+
+            <strong>About this activity</strong>
+
+            <br><br>
+
+            This is a simple relaxation activity
+            provided as a supportive feature.
+
+            It is not a medical treatment or
+            psychological diagnosis.
+
+        </div>
+
+
+        <br>
+
+
+        <a
+            href="/result"
+            class="button back">
+
+            ← Back to Result
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   BREATHING VARIABLES
+========================================= */
+
+let running = false;
+
+let remaining = 60;
+
+let totalTimer = null;
+
+let phaseTimer = null;
+
+let phaseIndex = 0;
+
+
+/* =========================================
+   BREATHING PHASES
+========================================= */
+
+const phases = [
+
+    {
+        text: "Breathe In",
+        className: "inhale",
+        duration: 4000
+    },
+
+    {
+        text: "Hold",
+        className: "hold",
+        duration: 2000
+    },
+
+    {
+        text: "Breathe Out",
+        className: "exhale",
+        duration: 4000
+    },
+
+    {
+        text: "Rest",
+        className: "exhale",
+        duration: 2000
+    }
+
+];
+
+
+/* =========================================
+   START
+========================================= */
+
+function startBreathing() {
+
+
+    if (running) {
+
+        return;
+
+    }
+
+
+    running = true;
+
+    remaining = 60;
+
+    phaseIndex = 0;
+
+
+    document.getElementById(
+        "completed"
+    ).style.display = "none";
+
+
+    updateTimer();
+
+
+    startPhase();
+
+
+    totalTimer = setInterval(
+
+        function () {
+
+
+            if (!running) {
+
+                return;
+
+            }
+
+
+            remaining--;
+
+
+            updateTimer();
+
+
+            if (remaining <= 0) {
+
+                finishBreathing();
+
+            }
+
+
+        },
+
+        1000
+
+    );
+
+}
+
+
+/* =========================================
+   BREATHING PHASE
+========================================= */
+
+function startPhase() {
+
+
+    if (!running) {
+
+        return;
+
+    }
+
+
+    const circle =
+        document.getElementById(
+            "breathingCircle"
+        );
+
+
+    const instruction =
+        document.getElementById(
+            "instruction"
+        );
+
+
+    const phase =
+        phases[phaseIndex];
+
+
+    circle.className =
+        "circle " +
+        phase.className;
+
+
+    circle.innerText =
+        phase.text;
+
+
+    instruction.innerText =
+        phase.text;
+
+
+    clearTimeout(
+        phaseTimer
+    );
+
+
+    phaseTimer = setTimeout(
+
+        function () {
+
+
+            if (!running) {
+
+                return;
+
+            }
+
+
+            phaseIndex++;
+
+
+            if (
+                phaseIndex >=
+                phases.length
+            ) {
+
+                phaseIndex = 0;
+
+            }
+
+
+            startPhase();
+
+
+        },
+
+        phase.duration
+
+    );
+
+}
+
+
+/* =========================================
+   UPDATE TIMER
+========================================= */
+
+function updateTimer() {
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+        remaining +
+        " seconds";
+
+}
+
+
+/* =========================================
+   STOP
+========================================= */
+
+function stopBreathing() {
+
+
+    running = false;
+
+
+    clearInterval(
+        totalTimer
+    );
+
+
+    clearTimeout(
+        phaseTimer
+    );
+
+
+    totalTimer = null;
+
+    phaseTimer = null;
+
+
+    const circle =
+        document.getElementById(
+            "breathingCircle"
+        );
+
+
+    circle.className =
+        "circle";
+
+
+    circle.innerText =
+        "Paused";
+
+
+    document.getElementById(
+        "instruction"
+    ).innerText =
+        "Breathing stopped";
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+        "Press Start to begin again";
+
+}
+
+
+/* =========================================
+   FINISH
+========================================= */
+
+function finishBreathing() {
+
+
+    running = false;
+
+
+    clearInterval(
+        totalTimer
+    );
+
+
+    clearTimeout(
+        phaseTimer
+    );
+
+
+    totalTimer = null;
+
+    phaseTimer = null;
+
+
+    const circle =
+        document.getElementById(
+            "breathingCircle"
+        );
+
+
+    circle.className =
+        "circle";
+
+
+    circle.innerText =
+        "Done";
+
+
+    document.getElementById(
+        "instruction"
+    ).innerText =
+        "Well done 🌿";
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+        "Session complete";
+
+
+    document.getElementById(
+        "completed"
+    ).style.display =
+        "block";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

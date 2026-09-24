@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Safe Location Finder</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .privacy {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+        }
+
+        .privacy h3 {
+            margin-top: 0;
+        }
+
+        .location-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .location-button:hover {
+            background: #1d4ed8;
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .service {
+            padding: 22px;
+            border-radius: 15px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 45px;
+        }
+
+        .service h3 {
+            margin: 12px 0;
+        }
+
+        .service button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            background: #0f766e;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .emergency {
+            background: #fff5f5;
+            border: 2px solid #fecaca;
+            text-align: center;
+        }
+
+        .emergency h2 {
+            color: #991b1b;
+        }
+
+        .call-button {
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            background: #dc2626;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #e5e7eb;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        🗺️ Safe Location Finder
+    </h1>
+
+    <p>
+        Find nearby places where you can seek help.
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- PRIVACY -->
+
+    <div class="card privacy">
+
+        <h3>
+            🔐 Location Privacy
+        </h3>
+
+        <p>
+            Your location is requested only when
+            you choose to use the location finder.
+        </p>
+
+        <p>
+            We do not display your exact location
+            to other users.
+        </p>
+
+    </div>
+
+
+
+    <!-- LOCATION -->
+
+    <div class="card">
+
+        <h2>
+            📍 Find Help Near You
+        </h2>
+
+        <p>
+            Allow location access to find nearby
+            support services.
+        </p>
+
+
+        <button
+            class="location-button"
+            onclick="getLocation()">
+
+            📍 Use My Current Location
+
+        </button>
+
+
+        <div
+            id="status"
+            class="status">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SERVICES -->
+
+    <div
+        id="services"
+        class="card hidden">
+
+        <h2>
+            🛟 Available Help
+        </h2>
+
+
+        <div class="services">
+
+
+            <!-- POLICE -->
+
+            <div class="service">
+
+                <div class="service-icon">
+                    👮
+                </div>
+
+                <h3>
+                    Police Stations
+                </h3>
+
+                <p>
+                    Find police stations near
+                    your current location.
+                </p>
+
+                <button
+                    onclick="openService('police')">
+
+                    Find Police
+
+                </button>
+
+            </div>
+
+
+
+            <!-- HOSPITAL -->
+
+            <div class="service">
+
+                <div class="service-icon">
+                    🏥
+                </div>
+
+                <h3>
+                    Hospitals
+                </h3>
+
+                <p>
+                    Find nearby hospitals and
+                    emergency medical services.
+                </p>
+
+                <button
+                    onclick="openService('hospital')">
+
+                    Find Hospitals
+
+                </button>
+
+            </div>
+
+
+
+            <!-- LEGAL AID -->
+
+            <div class="service">
+
+                <div class="service-icon">
+                    ⚖️
+                </div>
+
+                <h3>
+                    Legal Aid
+                </h3>
+
+                <p>
+                    Find nearby legal assistance
+                    and support services.
+                </p>
+
+                <button
+                    onclick="openService('legal aid')">
+
+                    Find Legal Aid
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SUPPORT -->
+
+            <div class="service">
+
+                <div class="service-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Support Centres
+                </h3>
+
+                <p>
+                    Find nearby support and
+                    assistance centres.
+                </p>
+
+                <button
+                    onclick="openService('support centre')">
+
+                    Find Support
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- EMERGENCY -->
+
+    <div class="card emergency">
+
+        <h2>
+            🆘 Immediate Danger?
+        </h2>
+
+        <p>
+            If you are in immediate danger,
+            contact emergency services.
+        </p>
+
+        <button
+            class="call-button"
+            onclick="callEmergency()">
+
+            📞 Call 112
+
+        </button>
+
+    </div>
+
+
+
+    <button
+        class="back-button"
+        onclick="goBack()">
+
+        ← Back to Assessment
+
+    </button>
+
+
+</div>
+
+
+<footer>
+
+    <p>
+        This feature is a prototype for the SIH project.
+    </p>
+
+    <p>
+        Location access is optional and user-controlled.
+    </p>
+
+</footer>
+
+
+
+<script>
+
+
+let userLatitude = null;
+let userLongitude = null;
+
+
+// ============================================================
+// GET LOCATION
+// ============================================================
+
+function getLocation() {
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+
+    status.innerText =
+        "📍 Requesting your location...";
+
+
+    if (!navigator.geolocation) {
+
+        status.innerText =
+            "❌ Location services are not supported.";
+
+        return;
+
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            userLatitude =
+                position.coords.latitude;
+
+            userLongitude =
+                position.coords.longitude;
+
+
+            status.innerText =
+                "🟢 Location received. Choose a service below.";
+
+
+            document
+                .getElementById("services")
+                .classList
+                .remove("hidden");
+
+        },
+
+
+        function(error) {
+
+            if (
+                error.code ===
+                error.PERMISSION_DENIED
+            ) {
+
+                status.innerText =
+                    "❌ Location permission was denied.";
+
+            }
+
+            else {
+
+                status.innerText =
+                    "❌ Unable to get your location.";
+
+            }
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 60000
+        }
+
+    );
+
+}
+
+
+// ============================================================
+// OPEN NEARBY SERVICE
+// ============================================================
+
+function openService(service) {
+
+    if (
+        userLatitude === null ||
+        userLongitude === null
+    ) {
+
+        alert(
+            "Please allow location access first."
+        );
+
+        return;
+
+    }
+
+
+    const query =
+        encodeURIComponent(
+            service
+            + " near me"
+        );
+
+
+    const url =
+        "https://www.google.com/maps/search/"
+        + query
+        + "/@"
+        + userLatitude
+        + ","
+        + userLongitude
+        + ",14z";
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+// ============================================================
+// EMERGENCY
+// ============================================================
+
+function callEmergency() {
+
+    window.location.href =
+        "tel:112";
+
+}
+
+
+// ============================================================
+// BACK
+// ============================================================
+
+function goBack() {
+
+    window.history.back();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

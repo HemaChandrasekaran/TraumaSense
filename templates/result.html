@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TraumaSense - Assessment Result</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #263238;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 22px 30px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #4f46e5;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            color: #64748b;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #374151;
+        }
+
+        .case-id {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        /* ==============================
+           MAIN SVI
+        ============================== */
+
+        .svi-card {
+            text-align: center;
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #ffffff
+            );
+        }
+
+        .svi-score {
+            font-size: 65px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin: 10px 0;
+        }
+
+        .svi-label {
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .risk {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .risk-HIGH {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .risk-MEDIUM {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .risk-LOW {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==============================
+           METRICS
+        ============================== */
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+            gap: 15px;
+        }
+
+        .metric {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric span {
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .metric strong {
+            color: #4f46e5;
+            font-size: 18px;
+        }
+
+        /* ==============================
+           CONTRIBUTION
+        ============================== */
+
+        .contribution {
+            margin-bottom: 18px;
+        }
+
+        .contribution-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .bar {
+            height: 14px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #6366f1;
+            border-radius: 20px;
+        }
+
+        .weight {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* ==============================
+           NOTICE
+        ============================== */
+
+        .notice {
+            margin-top: 18px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #eef2ff;
+            color: #3730a3;
+            line-height: 1.6;
+        }
+
+        .warning {
+            background: #fff7ed;
+            color: #9a3412;
+        }
+
+        .danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .safe {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        /* ==============================
+           TEXT
+        ============================== */
+
+        .response-box {
+            background: #f8fafc;
+            border-left: 4px solid #6366f1;
+            padding: 18px;
+            border-radius: 10px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        .buttons {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+.button.yellow {
+    background: #f4c542;
+    color: #ffffff;
+}
+
+.button.pink {
+    background: #e58bb5;
+    color: #ffffff;
+}
+
+.button.yellow:hover,
+.button.pink:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+.button.brown {
+    background: #4a90e2;
+    color: #ffffff;
+}
+
+.button.brown:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+.button.music {
+    background: #000000;
+    color: #ffffff;
+}
+
+.button.music:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+.button.breathing {
+    background: #20a39e;
+    color: #ffffff;
+}
+
+.button.breathing:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+        .primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .secondary {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .green {
+            background: #059669;
+            color: white;
+        }
+
+        .orange {
+            background: #ea580c;
+            color: white;
+        }
+
+        .red {
+            background: #dc2626;
+            color: white;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .svi-score {
+                font-size: 50px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<div class="header">
+
+    <h1>
+        🧠 TraumaSense
+    </h1>
+
+    <p>
+        AI-Assisted Stress & Trauma Screening
+    </p>
+
+</div>
+
+
+
+<div class="container">
+
+
+<!-- ==================================================
+     CASE ID
+================================================== -->
+
+<div class="case-id">
+
+    <strong>
+        Case ID:
+    </strong>
+
+    {{ case_id }}
+
+</div>
+
+
+
+<!-- ==================================================
+     MAIN SVI
+================================================== -->
+
+<div class="card svi-card">
+
+    <h2>
+        📊 Safety & Vulnerability Indicator
+    </h2>
+
+    <div class="svi-score">
+
+        {{ result.svi }}%
+
+    </div>
+
+    <div class="svi-label">
+
+        Overall Screening Indicator
+
+    </div>
+
+
+    <div class="risk risk-{{ result.risk }}">
+
+        Risk Level:
+        {{ result.risk }}
+
+    </div>
+
+
+    {% if result.svi_explanation %}
+
+    <div class="notice">
+
+        💡 {{ result.svi_explanation }}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+
+<!-- ==================================================
+     EMOTIONAL ASSESSMENT
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        🧠 Emotional Assessment
+    </h2>
+
+
+    <div class="metrics">
+
+
+        <div class="metric">
+
+            <span>
+                Stress
+            </span>
+
+            <strong>
+                {{ result.stress }}%
+            </strong>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>
+                Fear
+            </span>
+
+            <strong>
+                {{ result.fear }}%
+            </strong>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>
+                Anxiety
+            </span>
+
+            <strong>
+                {{ result.anxiety }}%
+            </strong>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>
+                Trauma Distress
+            </span>
+
+            <strong>
+                {{ result.trauma_distress }}%
+            </strong>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>
+                Vulnerability
+            </span>
+
+            <strong>
+                {{ result.vulnerability }}%
+            </strong>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>
+                Stress Level
+            </span>
+
+            <strong>
+                {{ result.stress_level }}
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     SVI COMPONENTS
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        📈 SVI Components
+    </h2>
+
+
+    <p>
+        The final SVI combines multiple screening signals.
+    </p>
+
+
+    {% set components = result.svi_components %}
+    {% set weights = result.svi_weights %}
+
+
+    {% if components %}
+
+
+    <!-- TEXT -->
+
+    <div class="contribution">
+
+        <div class="contribution-header">
+
+            <span>
+                📝 Text Analysis
+            </span>
+
+            <span>
+                {{ components.text }}%
+            </span>
+
+        </div>
+
+        <div class="bar">
+
+            <div
+                class="bar-fill"
+                style="width: {{ components.text }}%;">
+            </div>
+
+        </div>
+
+        <div class="weight">
+
+            Weight: {{ weights.text }}%
+
+        </div>
+
+    </div>
+
+
+
+    <!-- VISUAL -->
+
+    <div class="contribution">
+
+        <div class="contribution-header">
+
+            <span>
+                👁️ Visual Response
+            </span>
+
+            <span>
+                {{ components.visual }}%
+            </span>
+
+        </div>
+
+        <div class="bar">
+
+            <div
+                class="bar-fill"
+                style="width: {{ components.visual }}%;">
+            </div>
+
+        </div>
+
+        <div class="weight">
+
+            Weight: {{ weights.visual }}%
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BEHAVIORAL -->
+
+    <div class="contribution">
+
+        <div class="contribution-header">
+
+            <span>
+                🎯 Behavioral Response
+            </span>
+
+            <span>
+                {{ components.behavioral }}%
+            </span>
+
+        </div>
+
+        <div class="bar">
+
+            <div
+                class="bar-fill"
+                style="width: {{ components.behavioral }}%;">
+            </div>
+
+        </div>
+
+        <div class="weight">
+
+            Weight: {{ weights.behavioral }}%
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MOOD -->
+
+    <div class="contribution">
+
+        <div class="contribution-header">
+
+            <span>
+                😊 Mood Diary
+            </span>
+
+            <span>
+                {{ components.mood }}%
+            </span>
+
+        </div>
+
+        <div class="bar">
+
+            <div
+                class="bar-fill"
+                style="width: {{ components.mood }}%;">
+            </div>
+
+        </div>
+
+        <div class="weight">
+
+            Weight: {{ weights.mood }}%
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+</div>
+
+
+
+<!-- ==================================================
+     ACTUAL SVI CONTRIBUTION
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        🧮 SVI Contribution
+    </h2>
+
+    <p>
+        Contribution of each component to the final SVI score.
+    </p>
+
+
+    {% if result.svi_contributions %}
+
+
+    {% for name, value in result.svi_contributions.items() %}
+
+        {% if name in ["text", "visual", "behavioral", "mood"] %}
+
+        <div class="metric">
+
+            <span>
+
+                {% if name == "text" %}
+                    📝 Text
+                {% elif name == "visual" %}
+                    👁️ Visual
+                {% elif name == "behavioral" %}
+                    🎯 Behavioral
+                {% elif name == "mood" %}
+                    😊 Mood
+                {% else %}
+                    {{ name }}
+                {% endif %}
+
+            </span>
+
+            <strong>
+
+                {{ "%.2f"|format(value) }}
+
+            </strong>
+
+        </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+
+    <div class="notice">
+
+        <strong>
+            Final SVI:
+        </strong>
+
+        {{ result.svi }}%
+
+    </div>
+
+
+    {% endif %}
+
+</div>
+
+
+
+<!-- ==================================================
+     SAFETY INDICATORS
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        🛡️ Safety Screening
+    </h2>
+
+
+    {% if result.safety_flag %}
+
+        <div class="notice danger">
+
+            ⚠️
+
+            <strong>
+                Safety indicators detected.
+            </strong>
+
+            <p>
+                The system recommends priority
+                human review.
+            </p>
+
+        </div>
+
+
+        {% if result.safety_indicators %}
+
+        <h3>
+            Detected indicators
+        </h3>
+
+        <div class="metrics">
+
+            {% for indicator in result.safety_indicators %}
+
+            <div class="metric">
+
+                <span>
+                    ⚠️ {{ indicator }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+    {% else %}
+
+        <div class="notice safe">
+
+            ✓ No predefined safety keywords
+            were detected in the submitted text.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<!-- ==================================================
+     AI EMOTIONS
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        🤖 AI Emotion Analysis
+    </h2>
+
+
+    {% if result.emotion_scores %}
+
+
+    <div class="metrics">
+
+        {% for emotion, score in
+               result.emotion_scores.items() %}
+
+        <div class="metric">
+
+            <span>
+                {{ emotion|capitalize }}
+            </span>
+
+            <strong>
+                {{ "%.2f"|format(score) }}%
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+    <p>
+        Emotion analysis data is not available.
+    </p>
+
+    {% endif %}
+
+
+    <div class="notice">
+
+        🤖 AI model:
+
+        <strong>
+            {{ result.model }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     HUMAN REVIEW
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        👨‍⚕️ Human Review
+    </h2>
+
+
+    <p>
+
+        AI screening is intended to support
+        human review. It is not a medical diagnosis.
+
+    </p>
+
+
+    <div class="buttons">
+
+        <a
+            href="/officer-dashboard"
+            class="button secondary">
+
+            📋 OFFICER DASHBOARD
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     SUPPORT
+================================================== -->
+
+<div class="card">
+
+    <h2>
+        💙 Support & Safety
+    </h2>
+
+
+    <p>
+
+        If you feel unsafe or need immediate
+        assistance, use the available support
+        options.
+
+    </p>
+
+
+    <div class="buttons">
+
+
+        <a
+            href="/anonymous-chat"
+            class="button primary">
+
+            💬 Anonymous Chat
+
+        </a>
+
+<a
+    href="/mood-diary"
+    class="button yellow">
+
+    📝 Mood Diary
+
+</a>
+        <a
+            href="/safe-location"
+            class="button green">
+
+            📍 Safe Location
+
+        </a>
+<a
+    href="/goose"
+    class="button pink">
+
+    🪿 Goose Companion
+
+</a>
+<a
+    href="/game"
+    class="button brown">
+
+    🎮 Calm Focus Game
+
+</a>
+<a
+    href="/spotify"
+    class="button music">
+
+    🎵 Music Listening
+
+</a>
+<a
+    href="/breathing"
+    class="button breathing">
+
+    🌬️ Breathing Exercise
+
+</a>
+        <a
+            href="/sos"
+            class="button red">
+
+            🚨 Emergency SOS
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     DISCLAIMER
+================================================== -->
+
+<div class="card">
+
+    <div class="notice warning">
+
+        ⚠️
+
+        <strong>
+            Important:
+        </strong>
+
+        This system provides an AI-assisted
+        screening indicator for prototype purposes.
+        It does not diagnose psychological or
+        medical conditions. Human review should
+        be used when appropriate.
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     NAVIGATION
+================================================== -->
+
+<div class="buttons">
+
+
+    <a
+        href="/assessment"
+        class="button secondary">
+
+        🔄 New Assessment
+
+    </a>
+
+
+    <a
+        href="/"
+        class="button primary">
+
+        🏠 Home
+
+    </a>
+
+
+</div>
+
+
+</div>
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer>
+
+    TraumaSense HealthTech
+
+    <br>
+
+    AI-Assisted Real-Time Stress & Trauma
+    Screening
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Goose Companion</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8ff;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            color: #315c8c;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .goose {
+            font-size: 130px;
+            margin: 15px 0;
+            transition: transform 0.3s;
+        }
+
+        .goose:hover {
+            transform: scale(1.08);
+        }
+
+        .mood {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background: #eef5ff;
+            border-radius: 15px;
+            padding: 18px;
+            margin: 20px auto;
+            max-width: 600px;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        .mood-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-size: 15px;
+            background: #e7f0ff;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .points {
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .talk-button {
+            background: #315c8c;
+            color: white;
+        }
+
+        .links {
+            margin-top: 25px;
+        }
+
+        .links a {
+            display: inline-block;
+            text-decoration: none;
+            margin: 6px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            background: #eef5ff;
+            color: #315c8c;
+        }
+
+        @media (max-width: 600px) {
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            .goose {
+                font-size: 100px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🪿 Meet Your Goose</h1>
+
+        <p class="subtitle">
+            Your little companion is here to support you.
+        </p>
+
+
+        <!-- GOOSE -->
+
+        <div
+            id="goose"
+            class="goose">
+
+            🪿
+
+        </div>
+
+
+        <!-- GOOSE MOOD -->
+
+        <div
+            id="gooseMood"
+            class="mood">
+
+            Goose is feeling calm 💙
+
+        </div>
+
+
+        <!-- GOOSE MESSAGE -->
+
+        <div
+            id="gooseMessage"
+            class="message">
+
+            Hi! I'm your Goose. 😊
+            <br>
+            Tell me how you're feeling today.
+
+        </div>
+
+
+        <!-- MOOD BUTTONS -->
+
+        <div class="mood-buttons">
+
+            <button onclick="setMood('happy')">
+                😊 Happy
+            </button>
+
+            <button onclick="setMood('sad')">
+                😔 Sad
+            </button>
+
+            <button onclick="setMood('anxious')">
+                😰 Anxious
+            </button>
+
+            <button onclick="setMood('angry')">
+                😡 Angry
+            </button>
+
+            <button onclick="setMood('fear')">
+                😨 Afraid
+            </button>
+
+        </div>
+
+
+        <!-- MOOD POINTS -->
+
+        <div class="points">
+
+            ⭐ Mood Points:
+            <span id="points">0</span>
+
+        </div>
+
+
+        <!-- TALK TO GOOSE -->
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="userMessage"
+                placeholder="Tell Goose how you feel...">
+
+            <button
+                class="talk-button"
+                onclick="talkToGoose()">
+
+                Talk to Goose 💬
+
+            </button>
+
+        </div>
+
+
+        <!-- EXISTING FEATURES -->
+
+        <div class="links">
+
+            <a href="/mood-diary">
+                📝 Mood Diary
+            </a>
+
+            <a href="/anonymous-chat">
+                💬 Anonymous Chat
+            </a>
+
+            <a href="/result">
+                ← Assessment Result
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let points = 0;
+
+
+/* ==========================================
+   CHANGE GOOSE MOOD
+========================================== */
+
+function setMood(mood) {
+
+    const goose =
+        document.getElementById("goose");
+
+    const gooseMood =
+        document.getElementById("gooseMood");
+
+    const message =
+        document.getElementById("gooseMessage");
+
+
+    if (mood === "happy") {
+
+        goose.innerHTML = "🪿😊";
+
+        gooseMood.innerHTML =
+            "Goose is happy with you! 💛";
+
+        message.innerHTML =
+            "Yay! I'm happy because you're happy! 🥰";
+
+    }
+
+
+    else if (mood === "sad") {
+
+        goose.innerHTML = "🪿😔";
+
+        gooseMood.innerHTML =
+            "Goose is feeling caring 💙";
+
+        message.innerHTML =
+            "It's okay to have difficult days. I'm here with you. 💙";
+
+    }
+
+
+    else if (mood === "anxious") {
+
+        goose.innerHTML = "🪿😰";
+
+        gooseMood.innerHTML =
+            "Goose is staying calm with you 🌿";
+
+        message.innerHTML =
+            "Take a slow breath. You can take things one step at a time. 🤍";
+
+    }
+
+
+    else if (mood === "angry") {
+
+        goose.innerHTML = "🪿😤";
+
+        gooseMood.innerHTML =
+            "Goose is helping you calm down 💙";
+
+        message.innerHTML =
+            "It's okay to feel angry. Let's take a moment and breathe.";
+
+    }
+
+
+    else if (mood === "fear") {
+
+        goose.innerHTML = "🪿😟";
+
+        gooseMood.innerHTML =
+            "Goose is staying beside you 🤍";
+
+        message.innerHTML =
+            "You don't have to handle everything at once. Take a moment and stay safe.";
+
+    }
+
+
+    points += 5;
+
+    document.getElementById("points").innerHTML =
+        points;
+
+}
+
+
+/* ==========================================
+   TALK TO GOOSE
+========================================== */
+
+async function talkToGoose() {
+
+    const input =
+        document.getElementById("userMessage");
+
+    const message =
+        input.value.trim();
+
+    const gooseMessage =
+        document.getElementById("gooseMessage");
+
+
+    if (message === "") {
+
+        gooseMessage.innerHTML =
+            "I'm listening. Tell me what's on your mind. 🪿💙";
+
+        return;
+
+    }
+
+
+    gooseMessage.innerHTML =
+        "Goose is listening... 🪿💭";
+
+
+    /*
+       Change Goose's mood based on
+       the words typed by the user.
+    */
+
+    const lower =
+        message.toLowerCase();
+
+
+    if (
+        lower.includes("sad") ||
+        lower.includes("cry") ||
+        lower.includes("lonely") ||
+        lower.includes("upset")
+    ) {
+
+        setMood("sad");
+
+    }
+
+    else if (
+        lower.includes("afraid") ||
+        lower.includes("scared") ||
+        lower.includes("fear") ||
+        lower.includes("unsafe")
+    ) {
+
+        setMood("fear");
+
+    }
+
+    else if (
+        lower.includes("happy") ||
+        lower.includes("good") ||
+        lower.includes("great") ||
+        lower.includes("excited")
+    ) {
+
+        setMood("happy");
+
+    }
+
+    else if (
+        lower.includes("anxious") ||
+        lower.includes("stress") ||
+        lower.includes("worried")
+    ) {
+
+        setMood("anxious");
+
+    }
+
+    else if (
+        lower.includes("angry") ||
+        lower.includes("mad")
+    ) {
+
+        setMood("angry");
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/goose/respond",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            gooseMessage.innerHTML =
+                data.reply;
+
+        }
+
+        else {
+
+            gooseMessage.innerHTML =
+                data.reply ||
+                "I'm here to listen. 💙";
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        gooseMessage.innerHTML =
+            "I'm having trouble responding right now. 💙";
+
+    }
+
+
+    /*
+       Give points for interacting
+       with Goose.
+    */
+
+    points += 5;
+
+    document.getElementById(
+        "points"
+    ).innerHTML = points;
+
+
+    input.value = "";
+
+}
+
+</script>
+
+</body>
+
+</html>

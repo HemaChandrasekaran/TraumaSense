@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Trauma Assessment</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8f4,
+                    #f5f8ff
+                );
+
+            color: #333;
+            min-height: 100vh;
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        header {
+
+            background: white;
+
+            padding: 18px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 2px 12px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .logo {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+            color: #6246ea;
+        }
+
+
+        .language-select {
+
+            padding: 9px 14px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 10px;
+
+            background: white;
+
+            font-size: 14px;
+
+            cursor: pointer;
+        }
+
+
+        /* ==================================================
+           MAIN
+        ================================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 900px;
+
+            margin: 45px auto;
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            font-size: 34px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #666;
+
+            line-height: 1.6;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* ==================================================
+           CARD
+        ================================================== */
+
+        .card {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .question {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        .info {
+
+            background: #f5f2ff;
+
+            border-left:
+                4px solid #6246ea;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            line-height: 1.6;
+
+            color: #555;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* ==================================================
+           TEXT AREA
+        ================================================== */
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 190px;
+
+            padding: 17px;
+
+            border:
+                1px solid #d8d8d8;
+
+            border-radius: 14px;
+
+            font-size: 16px;
+
+            font-family: inherit;
+
+            resize: vertical;
+
+            outline: none;
+        }
+
+
+        textarea:focus {
+
+            border-color: #6246ea;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(98,70,234,0.1);
+        }
+
+
+        /* ==================================================
+           VOICE
+        ================================================== */
+
+        .voice-box {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #fafafa;
+
+            border:
+                1px solid #e5e5e5;
+
+            border-radius: 15px;
+
+            text-align: center;
+        }
+
+
+        .voice-title {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .voice-text {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .voice-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .voice-button {
+
+            padding:
+                11px 20px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .start {
+
+            background: #e94b5f;
+
+            color: white;
+        }
+
+
+        .stop {
+
+            background: #555;
+
+            color: white;
+        }
+
+
+        .voice-button:disabled {
+
+            opacity: 0.45;
+
+            cursor: not-allowed;
+        }
+
+
+        #recordingStatus {
+
+            margin-top: 12px;
+
+            font-size: 14px;
+
+            color: #e94b5f;
+
+            font-weight: bold;
+        }
+
+
+        audio {
+
+            margin-top: 15px;
+
+            width: 100%;
+        }
+
+
+        /* ==================================================
+           CONSENT
+        ================================================== */
+
+        .consent {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #fff9e8;
+
+            border-radius: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        .consent label {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: flex-start;
+
+            cursor: pointer;
+        }
+
+
+        .consent input {
+
+            margin-top: 4px;
+        }
+
+
+        /* ==================================================
+           ANALYZE BUTTON
+        ================================================== */
+
+        .button-area {
+
+            text-align: center;
+
+            margin-top: 28px;
+        }
+
+
+        .analyze-button {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6246ea,
+                    #8066ee
+                );
+
+            color: white;
+
+            padding:
+                15px 42px;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .analyze-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(98,70,234,0.25);
+        }
+
+
+        .analyze-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+        }
+
+
+        /* ==================================================
+           LOADING
+        ================================================== */
+
+        #loading {
+
+            display: none;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #6246ea;
+
+            font-weight: bold;
+        }
+
+
+        .spinner {
+
+            display: inline-block;
+
+            width: 18px;
+
+            height: 18px;
+
+            border:
+                3px solid #ddd;
+
+            border-top-color:
+                #6246ea;
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
+
+            vertical-align: middle;
+
+            margin-right: 8px;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* ==================================================
+           WARNING
+        ================================================== */
+
+        .warning {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #fff5e5;
+
+            border-radius: 10px;
+
+            color: #725800;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==================================================
+           FOOTER
+        ================================================== */
+
+        footer {
+
+            text-align: center;
+
+            margin-top: 35px;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media(max-width:600px) {
+
+            header {
+
+                padding:
+                    15px 18px;
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin:
+                    25px auto;
+            }
+
+
+            .card {
+
+                padding: 22px;
+            }
+
+
+            h1 {
+
+                font-size: 27px;
+            }
+
+
+            .analyze-button {
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+    <div class="logo">
+
+        🌻 Trauma Assessment
+
+    </div>
+
+
+    <select
+        class="language-select"
+        id="languageSelect"
+        onchange="changeLanguage(this.value)">
+
+        <option value="English">
+            English
+        </option>
+
+        <option value="Tamil">
+            தமிழ் (Tamil)
+        </option>
+
+        <option value="Hindi">
+            हिन्दी (Hindi)
+        </option>
+
+        <option value="Telugu">
+            తెలుగు (Telugu)
+        </option>
+
+        <option value="Malayalam">
+            മലയാളം (Malayalam)
+        </option>
+
+        <option value="Kannada">
+            ಕನ್ನಡ (Kannada)
+        </option>
+
+        <option value="Bengali">
+            বাংলা (Bengali)
+        </option>
+
+        <option value="Marathi">
+            मराठी (Marathi)
+        </option>
+
+    </select>
+
+</header>
+
+
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<div class="container">
+
+
+    <h1 id="pageTitle">
+
+        Emotional Well-being Assessment
+
+    </h1>
+
+
+    <p
+        class="subtitle"
+        id="pageSubtitle">
+
+        Share what you are currently experiencing.
+        Your response will be analyzed to identify
+        possible levels of emotional distress.
+
+    </p>
+
+
+
+    <div class="card">
+
+
+        <div
+            class="question"
+            id="questionTitle">
+
+            How are you feeling right now?
+
+        </div>
+
+
+        <div
+            class="info"
+            id="infoText">
+
+            You can describe your feelings,
+            fears, worries, stress, or anything
+            that is making you uncomfortable.
+
+            <br><br>
+
+            Please avoid sharing passwords,
+            financial information, or unnecessary
+            private identification details.
+
+        </div>
+
+
+
+        <!-- ==================================================
+             FORM
+        ================================================== -->
+
+        <form
+            id="assessmentForm"
+            action="/analyze"
+            method="POST"
+            enctype="multipart/form-data">
+
+
+            <!-- LANGUAGE -->
+
+            <input
+                type="hidden"
+                name="language"
+                id="languageInput"
+                value="English">
+
+
+            <!-- NARRATIVE -->
+
+            <textarea
+                name="narrative"
+                id="narrative"
+                maxlength="3000"
+                placeholder="Describe what you are experiencing..."
+                required></textarea>
+
+
+            <!-- CHARACTER COUNT -->
+
+            <p style="text-align:right;color:#888;">
+
+                <span id="count">0</span>
+                / 3000 characters
+
+            </p>
+
+
+
+            <!-- ==================================================
+                 VOICE RECORDING
+            ================================================== -->
+
+            <div class="voice-box">
+
+
+                <div class="voice-title">
+
+                    🎙️ Voice Assessment
+
+                </div>
+
+
+                <div
+                    class="voice-text"
+                    id="voiceDescription">
+
+                    You may also record your voice.
+                    The system can analyze voice
+                    characteristics such as emotion,
+                    pitch, energy and pauses.
+
+                </div>
+
+
+                <div class="voice-buttons">
+
+
+                    <button
+                        type="button"
+                        class="voice-button start"
+                        id="startButton">
+
+                        🎙️ Start Recording
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="voice-button stop"
+                        id="stopButton"
+                        disabled>
+
+                        🛑 Stop Recording
+
+                    </button>
+
+
+                </div>
+
+
+                <div id="recordingStatus">
+
+                    Voice recording is optional.
+
+                </div>
+
+
+                <audio
+                    id="audioPreview"
+                    controls
+                    style="display:none;">
+                </audio>
+
+
+                <input
+                    type="file"
+                    name="voice_file"
+                    id="voiceFile"
+                    style="display:none;">
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 CONSENT
+            ================================================== -->
+
+            <div class="consent">
+
+
+                <label>
+
+
+                    <input
+                        type="checkbox"
+                        name="consent"
+                        id="consent"
+                        value="yes"
+                        required>
+
+
+                    <span id="consentText">
+
+                        I understand the above information
+                        and consent to AI-assisted assessment
+                        of the information I submit.
+
+                    </span>
+
+
+                </label>
+
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 ANALYZE
+            ================================================== -->
+
+            <div class="button-area">
+
+
+                <button
+                    type="submit"
+                    class="analyze-button"
+                    id="analyzeButton">
+
+                    🧠 Analyze My Response
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+
+        <!-- ==================================================
+             LOADING
+        ================================================== -->
+
+        <div id="loading">
+
+            <span class="spinner"></span>
+
+            Analyzing your response...
+
+        </div>
+
+
+
+        <!-- ==================================================
+             WARNING
+        ================================================== -->
+
+        <div class="warning">
+
+            <strong>Important:</strong>
+
+            This AI assessment is a prototype intended
+            to identify possible emotional distress and
+            vulnerability.
+
+            It is not a medical diagnosis.
+
+            High-risk results should be reviewed by an
+            appropriate human professional.
+
+        </div>
+
+
+    </div>
+
+
+
+    <footer>
+
+        AI-Based Real-Time Stress & Trauma
+        Assessment Prototype
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+
+// ========================================================
+// LANGUAGE TRANSLATIONS
+// ========================================================
+
+const translations = {
+
+    English: {
+
+        title:
+            "Emotional Well-being Assessment",
+
+        subtitle:
+            "Share what you are currently experiencing. Your response will be analyzed to identify possible levels of emotional distress.",
+
+        question:
+            "How are you feeling right now?",
+
+        voice:
+            "You may also record your voice. The system can analyze voice characteristics such as emotion, pitch, energy and pauses.",
+
+        placeholder:
+            "Describe what you are experiencing...",
+
+        consent:
+            "I understand the above information and consent to AI-assisted assessment of the information I submit.",
+
+        analyze:
+            "🧠 Analyze My Response"
+
+    },
+
+
+    Tamil: {
+
+        title:
+            "உணர்ச்சி நல மதிப்பீடு",
+
+        subtitle:
+            "நீங்கள் தற்போது அனுபவிப்பதை பகிர்ந்து கொள்ளுங்கள். உங்கள் பதில் உணர்ச்சி பாதிப்பின் சாத்தியமான அளவை கண்டறிய பகுப்பாய்வு செய்யப்படும்.",
+
+        question:
+            "இப்போது நீங்கள் எப்படி உணர்கிறீர்கள்?",
+
+        voice:
+            "உங்கள் குரலைப் பதிவு செய்யலாம். உணர்ச்சி, குரல் உயரம், ஆற்றல் மற்றும் இடைவெளிகள் போன்ற குரல் பண்புகளை அமைப்பு பகுப்பாய்வு செய்யலாம்.",
+
+        placeholder:
+            "நீங்கள் அனுபவிப்பதை விவரிக்கவும்...",
+
+        consent:
+            "மேலே உள்ள தகவலைப் புரிந்துகொண்டு, நான் சமர்ப்பிக்கும் தகவலை AI மூலம் மதிப்பீடு செய்ய ஒப்புக்கொள்கிறேன்.",
+
+        analyze:
+            "🧠 எனது பதிலை பகுப்பாய்வு செய்"
+
+    },
+
+
+    Hindi: {
+
+        title:
+            "भावनात्मक कल्याण मूल्यांकन",
+
+        subtitle:
+            "आप वर्तमान में क्या अनुभव कर रहे हैं, इसे साझा करें। आपके उत्तर का विश्लेषण भावनात्मक परेशानी के संभावित स्तरों की पहचान करने के लिए किया जाएगा।",
+
+        question:
+            "आप अभी कैसा महसूस कर रहे हैं?",
+
+        voice:
+            "आप अपनी आवाज़ भी रिकॉर्ड कर सकते हैं। सिस्टम भावना, पिच, ऊर्जा और रुकने जैसी आवाज़ की विशेषताओं का विश्लेषण कर सकता है।",
+
+        placeholder:
+            "आप जो अनुभव कर रहे हैं उसका वर्णन करें...",
+
+        consent:
+            "मैं ऊपर दी गई जानकारी को समझता/समझती हूँ और मेरे द्वारा दी गई जानकारी के AI-सहायता प्राप्त मूल्यांकन के लिए सहमति देता/देती हूँ।",
+
+        analyze:
+            "🧠 मेरे उत्तर का विश्लेषण करें"
+
+    },
+
+
+    Telugu: {
+
+        title:
+            "భావోద్వేగ సంక్షేమ అంచనా",
+
+        subtitle:
+            "మీరు ప్రస్తుతం అనుభవిస్తున్న విషయాలను పంచుకోండి. భావోద్వేగ బాధ యొక్క స్థాయిని గుర్తించడానికి మీ సమాధానం విశ్లేషించబడుతుంది.",
+
+        question:
+            "మీరు ఇప్పుడు ఎలా అనుభవిస్తున్నారు?",
+
+        voice:
+            "మీరు మీ స్వరాన్ని కూడా రికార్డ్ చేయవచ్చు. భావోద్వేగం, పిచ్, శక్తి మరియు విరామాలు వంటి స్వర లక్షణాలను వ్యవస్థ విశ్లేషించగలదు.",
+
+        placeholder:
+            "మీరు అనుభవిస్తున్న విషయాన్ని వివరించండి...",
+
+        consent:
+            "పై సమాచారాన్ని అర్థం చేసుకున్నాను మరియు నేను సమర్పించే సమాచారాన్ని AI ద్వారా అంచనా వేయడానికి సమ్మతిస్తున్నాను.",
+
+        analyze:
+            "🧠 నా సమాధానాన్ని విశ్లేషించండి"
+
+    },
+
+
+    Malayalam: {
+
+        title:
+            "വൈകാരിക ക്ഷേമ വിലയിരുത്തൽ",
+
+        subtitle:
+            "നിങ്ങൾ ഇപ്പോൾ അനുഭവിക്കുന്ന കാര്യങ്ങൾ പങ്കുവെക്കുക. വൈകാരിക വിഷമത്തിന്റെ സാധ്യതയുള്ള നില കണ്ടെത്താൻ നിങ്ങളുടെ മറുപടി വിശകലനം ചെയ്യും.",
+
+        question:
+            "നിങ്ങൾ ഇപ്പോൾ എങ്ങനെ അനുഭവപ്പെടുന്നു?",
+
+        voice:
+            "നിങ്ങളുടെ ശബ്ദവും റെക്കോർഡ് ചെയ്യാം. വികാരം, പിച്ച്, ഊർജം, ഇടവേളകൾ തുടങ്ങിയ ശബ്ദ സവിശേഷതകൾ സിസ്റ്റത്തിന് വിശകലനം ചെയ്യാൻ കഴിയും.",
+
+        placeholder:
+            "നിങ്ങൾ അനുഭവിക്കുന്ന കാര്യങ്ങൾ വിവരിക്കുക...",
+
+        consent:
+            "മുകളിലുള്ള വിവരങ്ങൾ മനസ്സിലാക്കുകയും ഞാൻ സമർപ്പിക്കുന്ന വിവരങ്ങളുടെ AI സഹായത്തോടെയുള്ള വിലയിരുത്തലിന് സമ്മതിക്കുകയും ചെയ്യുന്നു.",
+
+        analyze:
+            "🧠 എന്റെ മറുപടി വിശകലനം ചെയ്യുക"
+
+    },
+
+
+    Kannada: {
+
+        title:
+            "ಭಾವನಾತ್ಮಕ ಯೋಗಕ್ಷೇಮ ಮೌಲ್ಯಮಾಪನ",
+
+        subtitle:
+            "ನೀವು ಪ್ರಸ್ತುತ ಅನುಭವಿಸುತ್ತಿರುವುದನ್ನು ಹಂಚಿಕೊಳ್ಳಿ. ಭಾವನಾತ್ಮಕ ತೊಂದರೆಯ ಸಾಧ್ಯತೆಯ ಮಟ್ಟವನ್ನು ಗುರುತಿಸಲು ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ವಿಶ್ಲೇಷಿಸಲಾಗುತ್ತದೆ.",
+
+        question:
+            "ನೀವು ಈಗ ಹೇಗೆ ಅನುಭವಿಸುತ್ತಿದ್ದೀರಿ?",
+
+        voice:
+            "ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಸಹ ರೆಕಾರ್ಡ್ ಮಾಡಬಹುದು. ಭಾವನೆ, ಪಿಚ್, ಶಕ್ತಿ ಮತ್ತು ವಿರಾಮಗಳಂತಹ ಧ್ವನಿ ಲಕ್ಷಣಗಳನ್ನು ವ್ಯವಸ್ಥೆಯು ವಿಶ್ಲೇಷಿಸಬಹುದು.",
+
+        placeholder:
+            "ನೀವು ಅನುಭವಿಸುತ್ತಿರುವುದನ್ನು ವಿವರಿಸಿ...",
+
+        consent:
+            "ಮೇಲಿನ ಮಾಹಿತಿಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡಿದ್ದೇನೆ ಮತ್ತು ನಾನು ಸಲ್ಲಿಸುವ ಮಾಹಿತಿಯ AI ಸಹಾಯಿತ ಮೌಲ್ಯಮಾಪನಕ್ಕೆ ಸಮ್ಮತಿಸುತ್ತೇನೆ.",
+
+        analyze:
+            "🧠 ನನ್ನ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ವಿಶ್ಲೇಷಿಸಿ"
+
+    },
+
+
+    Bengali: {
+
+        title:
+            "মানসিক সুস্থতা মূল্যায়ন",
+
+        subtitle:
+            "আপনি বর্তমানে কী অনুভব করছেন তা শেয়ার করুন। মানসিক চাপের সম্ভাব্য মাত্রা শনাক্ত করতে আপনার উত্তর বিশ্লেষণ করা হবে।",
+
+        question:
+            "আপনি এখন কেমন অনুভব করছেন?",
+
+        voice:
+            "আপনি আপনার কণ্ঠও রেকর্ড করতে পারেন। সিস্টেম আবেগ, পিচ, শক্তি এবং বিরতির মতো কণ্ঠের বৈশিষ্ট্য বিশ্লেষণ করতে পারে।",
+
+        placeholder:
+            "আপনি কী অনুভব করছেন তা বর্ণনা করুন...",
+
+        consent:
+            "আমি উপরের তথ্য বুঝেছি এবং আমার জমা দেওয়া তথ্যের AI-সহায়িত মূল্যায়নে সম্মতি দিচ্ছি।",
+
+        analyze:
+            "🧠 আমার উত্তর বিশ্লেষণ করুন"
+
+    },
+
+
+    Marathi: {
+
+        title:
+            "भावनिक कल्याण मूल्यांकन",
+
+        subtitle:
+            "आपण सध्या काय अनुभवत आहात ते शेअर करा. भावनिक त्रासाची संभाव्य पातळी ओळखण्यासाठी आपल्या उत्तराचे विश्लेषण केले जाईल.",
+
+        question:
+            "तुम्हाला सध्या कसे वाटत आहे?",
+
+        voice:
+            "आपण आपला आवाज देखील रेकॉर्ड करू शकता. प्रणाली भावना, पिच, ऊर्जा आणि विराम यांसारख्या आवाजाच्या वैशिष्ट्यांचे विश्लेषण करू शकते.",
+
+        placeholder:
+            "आपण काय अनुभवत आहात ते वर्णन करा...",
+
+        consent:
+            "मला वरील माहिती समजली आहे आणि मी सादर केलेल्या माहितीच्या AI-सहाय्यित मूल्यांकनास मी संमती देतो/देते.",
+
+        analyze:
+            "🧠 माझ्या उत्तराचे विश्लेषण करा"
+
+    }
+
+};
+
+
+
+// ========================================================
+// CHANGE LANGUAGE
+// ========================================================
+
+function changeLanguage(language) {
+
+
+    const t =
+        translations[language];
+
+
+    if (!t) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("pageTitle")
+        .innerText =
+            t.title;
+
+
+    document
+        .getElementById("pageSubtitle")
+        .innerText =
+            t.subtitle;
+
+
+    document
+        .getElementById("questionTitle")
+        .innerText =
+            t.question;
+
+
+    document
+        .getElementById("voiceDescription")
+        .innerText =
+            t.voice;
+
+
+    document
+        .getElementById("narrative")
+        .placeholder =
+            t.placeholder;
+
+
+    document
+        .getElementById("consentText")
+        .innerText =
+            t.consent;
+
+
+    document
+        .getElementById("analyzeButton")
+        .innerText =
+            t.analyze;
+
+
+    document
+        .getElementById("languageInput")
+        .value =
+            language;
+
+
+    localStorage.setItem(
+        "assessmentLanguage",
+        language
+    );
+
+}
+
+
+
+// ========================================================
+// RESTORE LANGUAGE
+// ========================================================
+
+const savedLanguage =
+    localStorage.getItem(
+        "assessmentLanguage"
+    );
+
+
+if (
+    savedLanguage &&
+    translations[savedLanguage]
+) {
+
+    document
+        .getElementById("languageSelect")
+        .value =
+            savedLanguage;
+
+    changeLanguage(
+        savedLanguage
+    );
+
+}
+
+
+
+// ========================================================
+// CHARACTER COUNTER
+// ========================================================
+
+const narrative =
+    document.getElementById(
+        "narrative"
+    );
+
+
+const count =
+    document.getElementById(
+        "count"
+    );
+
+
+narrative.addEventListener(
+    "input",
+    function() {
+
+        count.innerText =
+            narrative.value.length;
+
+    }
+);
+
+
+
+// ========================================================
+// VOICE RECORDING
+// ========================================================
+
+let mediaRecorder =
+    null;
+
+let audioChunks =
+    [];
+
+
+
+const startButton =
+    document.getElementById(
+        "startButton"
+    );
+
+
+const stopButton =
+    document.getElementById(
+        "stopButton"
+    );
+
+
+const recordingStatus =
+    document.getElementById(
+        "recordingStatus"
+    );
+
+
+const audioPreview =
+    document.getElementById(
+        "audioPreview"
+    );
+
+
+const voiceFile =
+    document.getElementById(
+        "voiceFile"
+    );
+
+
+
+startButton.addEventListener(
+    "click",
+    async function() {
+
+
+        try {
+
+
+            const stream =
+                await navigator
+                    .mediaDevices
+                    .getUserMedia({
+                        audio: true
+                    });
+
+
+            audioChunks = [];
+
+
+            mediaRecorder =
+                new MediaRecorder(
+                    stream
+                );
+
+
+            mediaRecorder.ondataavailable =
+                function(event) {
+
+                    if (
+                        event.data.size > 0
+                    ) {
+
+                        audioChunks.push(
+                            event.data
+                        );
+
+                    }
+
+                };
+
+
+            mediaRecorder.onstop =
+                function() {
+
+
+                    const blob =
+                        new Blob(
+                            audioChunks,
+                            {
+                                type:
+                                    mediaRecorder.mimeType
+                            }
+                        );
+
+
+                    const audioURL =
+                        URL.createObjectURL(
+                            blob
+                        );
+
+
+                    audioPreview.src =
+                        audioURL;
+
+
+                    audioPreview.style.display =
+                        "block";
+
+
+                    // ==========================================
+                    // CREATE FILE
+                    // ==========================================
+
+                    let extension =
+                        "webm";
+
+
+                    if (
+                        mediaRecorder.mimeType
+                            .includes("mp4")
+                    ) {
+
+                        extension =
+                            "mp4";
+
+                    }
+
+
+                    const file =
+                        new File(
+
+                            [blob],
+
+                            "voice_recording."
+                            + extension,
+
+                            {
+                                type:
+                                    blob.type
+                            }
+
+                        );
+
+
+                    // ==========================================
+                    // PUT FILE INTO FORM
+                    // ==========================================
+
+                    const dataTransfer =
+                        new DataTransfer();
+
+
+                    dataTransfer.items.add(
+                        file
+                    );
+
+
+                    voiceFile.files =
+                        dataTransfer.files;
+
+
+                    recordingStatus.innerText =
+                        "✅ Recording completed. Voice is ready for analysis.";
+
+
+                };
+
+
+            mediaRecorder.start();
+
+
+            startButton.disabled =
+                true;
+
+
+            stopButton.disabled =
+                false;
+
+
+            recordingStatus.innerText =
+                "🔴 Recording... Please speak clearly.";
+
+
+        }
+
+        catch(error) {
+
+
+            console.error(
+                error
+            );
+
+
+            recordingStatus.innerText =
+                "⚠️ Microphone access was denied or is unavailable.";
+
+        }
+
+    }
+);
+
+
+
+// ========================================================
+// STOP RECORDING
+// ========================================================
+
+stopButton.addEventListener(
+    "click",
+    function() {
+
+
+        if (
+            mediaRecorder &&
+            mediaRecorder.state !==
+                "inactive"
+        ) {
+
+
+            mediaRecorder.stop();
+
+
+            mediaRecorder
+                .stream
+                .getTracks()
+                .forEach(
+                    function(track) {
+
+                        track.stop();
+
+                    }
+                );
+
+        }
+
+
+        startButton.disabled =
+            false;
+
+
+        stopButton.disabled =
+            true;
+
+    }
+);
+
+
+
+// ========================================================
+// FORM SUBMISSION
+// ========================================================
+
+document
+    .getElementById(
+        "assessmentForm"
+    )
+    .addEventListener(
+        "submit",
+        function(event) {
+
+
+            const text =
+                narrative.value.trim();
+
+
+            const consent =
+                document
+                    .getElementById(
+                        "consent"
+                    )
+                    .checked;
+
+
+            if (!text) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please describe what you are experiencing."
+                );
+
+                return;
+
+            }
+
+
+            if (!consent) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please provide informed consent before starting the assessment."
+                );
+
+                return;
+
+            }
+
+
+            document
+                .getElementById(
+                    "loading"
+                )
+                .style.display =
+                    "block";
+
+
+            document
+                .getElementById(
+                    "analyzeButton"
+                )
+                .disabled =
+                    true;
+
+
+            document
+                .getElementById(
+                    "analyzeButton"
+                )
+                .innerText =
+                    "🤖 AI is analyzing...";
+
+
+        }
+    );
+// ========================================================
+// GO TO VISUAL EMOTIONAL ASSESSMENT
+// ========================================================
+
+window.addEventListener(
+    "pageshow",
+    function() {
+
+        const currentPage =
+            window.location.pathname;
+
+        if (
+            currentPage === "/visual-assessment"
+        ) {
+            return;
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

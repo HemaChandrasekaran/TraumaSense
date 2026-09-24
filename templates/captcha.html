@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Security Verification - TraumaSense</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .captcha-container {
+            width: 95%;
+            max-width: 700px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.10);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            color: #243b53;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 0;
+            color: #667085;
+            font-size: 15px;
+        }
+
+        .instruction {
+            background: #eef5ff;
+            border: 1px solid #d6e7ff;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+
+            font-size: 17px;
+            font-weight: bold;
+            color: #1d4ed8;
+
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #fff1f1;
+            border: 1px solid #ffcaca;
+            color: #c62828;
+
+            padding: 12px;
+            border-radius: 10px;
+
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .image-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+        .captcha-item {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .captcha-item input {
+            display: none;
+        }
+
+        .captcha-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            border: 3px solid transparent;
+
+            transition:
+                transform 0.2s,
+                border 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .captcha-item:hover .captcha-image {
+            transform: scale(1.02);
+        }
+
+        .captcha-item input:checked + .captcha-image {
+            border: 4px solid #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .captcha-item input:checked + .captcha-image::after {
+            content: "✓";
+        }
+
+        .submit-btn {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .security-note {
+            text-align: center;
+            margin-top: 15px;
+
+            font-size: 13px;
+            color: #667085;
+        }
+
+        @media (max-width: 600px) {
+
+            .captcha-container {
+                padding: 20px;
+            }
+
+            .image-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="captcha-container">
+
+    <div class="header">
+
+        <h1>Security Verification</h1>
+
+        <p>
+            Before continuing with your assessment,
+            please complete this quick verification.
+        </p>
+
+    </div>
+
+
+    <div class="instruction">
+
+        Select all images containing a person
+
+    </div>
+
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form
+        method="POST"
+        action="{{ url_for('captcha_verify') }}"
+    >
+
+        <div class="image-grid">
+
+            {% for image in images %}
+
+            <label class="captcha-item">
+
+                <input
+                    type="checkbox"
+                    name="captcha_images"
+                    value="{{ image }}"
+                >
+
+                <img
+                    src="{{ url_for('static',
+                         filename='captcha_images/' + image) }}"
+                    class="captcha-image"
+                    alt="CAPTCHA image"
+                >
+
+            </label>
+
+            {% endfor %}
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="submit-btn"
+        >
+            Verify & Continue
+        </button>
+
+    </form>
+
+
+    <div class="security-note">
+
+        🔒 This verification helps protect the
+        assessment system from automated requests.
+
+    </div>
+
+</div>
+
+</body>
+</html>

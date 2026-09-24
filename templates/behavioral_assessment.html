@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Behavioral Assessment</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 22px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #607d8b;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 22px;
+            background: #f8faff;
+            border-radius: 15px;
+        }
+
+        .question h3 {
+            margin-top: 0;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border: 1px solid #e0e6ed;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        label:hover {
+            background: #eef4ff;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            background: #4f8cff;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            color: #78909c;
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>
+            Behavioral Assessment
+        </h1>
+
+        <p class="intro">
+            Please answer the following questions based on
+            how you have been feeling recently.
+        </p>
+
+
+       <form action="/behavioral-assessment/analyze" method="POST">
+
+    <h3>1. How difficult is it for you to concentrate on your usual activities right now?</h3>
+
+    <label>
+        <input type="radio" name="q0" value="0" required>
+        Not difficult
+    </label>
+
+    <label>
+        <input type="radio" name="q0" value="1">
+        Slightly difficult
+    </label>
+
+    <label>
+        <input type="radio" name="q0" value="2">
+        Moderately difficult
+    </label>
+
+    <label>
+        <input type="radio" name="q0" value="3">
+        Very difficult
+    </label>
+
+
+    <h3>2. How often have you felt nervous, restless, or unable to relax recently?</h3>
+
+    <label>
+        <input type="radio" name="q1" value="0" required>
+        Never
+    </label>
+
+    <label>
+        <input type="radio" name="q1" value="1">
+        Sometimes
+    </label>
+
+    <label>
+        <input type="radio" name="q1" value="2">
+        Often
+    </label>
+
+    <label>
+        <input type="radio" name="q1" value="3">
+        Almost always
+    </label>
+
+
+    <h3>3. When you face a stressful situation, how easy is it for you to make decisions?</h3>
+
+    <label>
+        <input type="radio" name="q2" value="0" required>
+        Very easy
+    </label>
+
+    <label>
+        <input type="radio" name="q2" value="1">
+        Easy
+    </label>
+
+    <label>
+        <input type="radio" name="q2" value="2">
+        Difficult
+    </label>
+
+    <label>
+        <input type="radio" name="q2" value="3">
+        Very difficult
+    </label>
+
+
+    <h3>4. How comfortable do you feel asking someone for help when you need it?</h3>
+
+    <label>
+        <input type="radio" name="q3" value="0" required>
+        Very comfortable
+    </label>
+
+    <label>
+        <input type="radio" name="q3" value="1">
+        Comfortable
+    </label>
+
+    <label>
+        <input type="radio" name="q3" value="2">
+        Uncomfortable
+    </label>
+
+    <label>
+        <input type="radio" name="q3" value="3">
+        Very uncomfortable
+    </label>
+
+
+    <h3>5. How much has stress affected your sleep or daily routine?</h3>
+
+    <label>
+        <input type="radio" name="q4" value="0" required>
+        Not at all
+    </label>
+
+    <label>
+        <input type="radio" name="q4" value="1">
+        A little
+    </label>
+
+    <label>
+        <input type="radio" name="q4" value="2">
+        Moderately
+    </label>
+
+    <label>
+        <input type="radio" name="q4" value="3">
+        A lot
+    </label>
+
+
+    <br><br>
+
+    <button type="submit">
+        Continue to Behavioral Result →
+    </button>
+
+</form>
+        <p class="note">
+            This assessment provides a supporting behavioral
+            indicator and is not a medical diagnosis.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

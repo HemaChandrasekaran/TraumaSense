@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NHAA AI Stress & Trauma Assessment</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="front-page">
+
+    <!-- PROJECT TITLE -->
+
+    <section class="project-header">
+
+        <h1>
+            NHAA AI Stress & Trauma Assessment
+        </h1>
+
+        <p class="subtitle">
+            Understanding emotions.<br>
+            Identifying vulnerability.<br>
+            Connecting people to human support.
+        </p>
+
+    </section>
+
+
+    <!-- GIRLS IMAGE -->
+
+    <section class="hero-image">
+
+        <img
+            src="{{ url_for('static', filename='girls.jpeg') }}"
+            alt="Six girls supporting each other">
+
+    </section>
+
+
+    <!-- QUOTE -->
+
+    <section class="quote-box">
+
+        <p class="quote">
+            “Your now is not your forever.”
+        </p>
+
+        <p class="author">
+            — John Green,
+            <i>Turtles All the Way Down</i>
+        </p>
+
+    </section>
+
+
+    <!-- CONSENT -->
+
+    <section class="consent-box">
+
+        <h2>
+            Informed Consent
+        </h2>
+
+        <p>
+            This prototype uses AI to analyze the information
+            you provide and generate an AI-assisted stress and
+            vulnerability assessment.
+        </p>
+
+        <p>
+            The assessment is not a medical or psychological
+            diagnosis.
+        </p>
+
+        <p>
+            AI results should be reviewed by authorized human
+            personnel before support or intervention decisions
+            are made.
+        </p>
+
+        <label class="consent-label">
+
+            <input
+                type="checkbox"
+                id="consent">
+
+            <span>
+                I understand the above information and consent
+                to AI-assisted assessment.
+            </span>
+
+        </label>
+
+
+        <button
+            id="continueBtn"
+            disabled
+            onclick="continueToAssessment()">
+
+            Continue to Assessment
+            <span>→</span>
+
+        </button>
+
+    </section>
+
+
+    <!-- PRIVACY -->
+
+    <section class="privacy-box">
+
+        <h3>
+            🔒 Privacy & Confidentiality
+        </h3>
+
+        <p>
+            Information submitted through this prototype
+            should be treated as confidential.
+        </p>
+
+        <p>
+            This prototype should not be used with real victim
+            information without appropriate security, legal,
+            ethical and organizational approval.
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        AI-assisted decision support • Human review required
+
+    </footer>
+
+</div>
+
+
+<script>
+
+const consent =
+    document.getElementById("consent");
+
+const continueBtn =
+    document.getElementById("continueBtn");
+
+
+consent.addEventListener("change", function () {
+
+    continueBtn.disabled = !this.checked;
+
+});
+
+
+function continueToAssessment() {
+
+    if (!consent.checked) {
+
+        alert(
+            "Please provide consent before continuing."
+        );
+
+        return;
+
+    }
+
+    window.location.href = "/assessment";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

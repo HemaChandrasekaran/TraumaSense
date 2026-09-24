@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Voice Assessment</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+</head>
+
+
+<body>
+
+    <h1>🎙️ Voice Assessment</h1>
+
+    <hr>
+
+
+    <!-- EMOTION -->
+
+    <h2>🧠 Voice Emotion Analysis</h2>
+
+    {% for emotion, score in voice_result.emotions.items() %}
+
+        <p>
+
+            <strong>
+                {{ emotion }}
+            </strong>
+
+            :
+
+            {{ score }}%
+
+        </p>
+
+    {% endfor %}
+
+
+    <!-- ACOUSTIC -->
+
+    <h2>📈 Voice Characteristics</h2>
+
+
+    <p>
+
+        <strong>
+            Duration:
+        </strong>
+
+        {{ voice_result.duration }}
+        seconds
+
+    </p>
+
+
+    <p>
+
+        <strong>
+            Average Pitch:
+        </strong>
+
+        {{ voice_result.average_pitch }}
+        Hz
+
+    </p>
+
+
+    <p>
+
+        <strong>
+            Pitch Variation:
+        </strong>
+
+        {{ voice_result.pitch_variation }}
+
+    </p>
+
+
+    <p>
+
+        <strong>
+            Voice Energy:
+        </strong>
+
+        {{ voice_result.voice_energy }}
+
+    </p>
+
+
+    <p>
+
+        <strong>
+            Pause Ratio:
+        </strong>
+
+        {{ voice_result.pause_ratio }}%
+
+    </p>
+
+
+    <hr>
+
+
+    <!-- DISTRESS -->
+
+    <h2>
+        🚨 Voice Distress Indicator
+    </h2>
+
+
+    <h1>
+
+        {{ voice_result.distress_level }}
+
+    </h1>
+
+
+    <p>
+
+        Indicator Score:
+
+        <strong>
+            {{ voice_result.distress_score }}/8
+        </strong>
+
+    </p>
+
+
+    <hr>
+
+
+    <p>
+
+        ⚠️ This result is an
+        <strong>
+            AI-generated indicator
+        </strong>
+
+        and is not a psychological diagnosis.
+
+    </p>
+
+
+    <br>
+
+
+    <a href="/assessment">
+
+        ← Back to Assessment
+
+    </a>
+
+
+</body>
+
+</html>
